@@ -12,7 +12,7 @@ import (
 func init() {
 
 	// Configuration Setting Globally
-	configuration.LoadConfig("./config.json")
+	configuration.LoadConfig("/home/shiv/carpediem/src/config.json")
 }
 
 func main() {

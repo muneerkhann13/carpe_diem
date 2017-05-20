@@ -36,7 +36,7 @@ func ErrorHandling(err error, requestId int64) model.Response {
 
 //Function will be called when there is success to send response
 
-func SuccessResult(Response travelModel.Response) travelModel.Response {
+func SuccessResult(Response model.Response) model.Response {
 	Response.Code = Success
 	Response.Description = StatusCodes(Success)
 

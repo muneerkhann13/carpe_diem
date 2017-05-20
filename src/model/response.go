@@ -3,7 +3,7 @@ package model
 type Response struct {
 	Token       string       `json:"token,omitempty"`
 	IsMerchant  bool         `json:"is_merchant,omitempty"`
-	Code        int64        `json:"code"`
+	Code        string       `json:"code"`
 	Description string       `json:"description"`
 	FirstName   string       `json:"first_name,omitempty"`
 	MiddleName  string       `json:"middle_name,omitempty"`

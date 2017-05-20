@@ -11,14 +11,6 @@ import (
 //Declare global variable use to set global configuration once at time of project startup
 var Config *model.Config
 
-/*
-   Author      : Mukesh Dutt
-   CreatedDate : 23-September-2016
-   Purpose     : Read json file and feed to structure
-   Parameters  : {"input":"path", "output":""}
-   Module      : Common
-   LastUpdate  : { "name": "mukesh dutt", "date":"23rd november 2016" }
-*/
 func LoadConfig(path string) {
 
 	file, err := ioutil.ReadFile(path)

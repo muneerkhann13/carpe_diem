@@ -6,7 +6,7 @@ import (
 	"strings"
 	"utilityData"
 
-	"common/configuration"
+	"common/utility"
 
 	"github.com/go-errors/errors"
 )
@@ -18,25 +18,35 @@ func GetResponse(request model.Request, jsonbody []uint8) model.Response {
 	//Validating request
 	//hostCode, hostDescription, ok := validations(request)
 
+	hostCode := "0"
+	hostDescription := "SomeThingWentWrong"
+	var err error
+	err = nil
 	// insert request in file log
+	requestID := request.Id
+	ok := true
+	//Saving request with parameters
+	//	requestID, err := utilityData.InsertRequest(request.Mdn, request.Service, strings.Replace(string(jsonbody), "  ", "", -1), "", "", request.ServiceRequest.Partnerinfo.Code, request.ServiceRequest.Serviceinfo.Category)
+	//utilityData.RequestLog(request.ServiceRequest.Transactioninfo.RequestID, request.ServiceRequest.User.Mdn, request.Service, strings.Replace(string(jsonbody), "  ", "", -1), "", "", request.ServiceRequest.Partnerinfo.Code, request.ServiceRequest.Serviceinfo.Category)
+	// When comes error during insert request
 
 	if err != nil {
 		utilityData.InsertErrorLogs(requestID, fmt.Sprint(errors.Errorf(err.Error()).ErrorStack()))
-		hostCode = configuration.SomeThingWentWrong
-		hostDescription = configuration.StatusCodes(configuration.SomeThingWentWrong)
+		hostCode = utility.SomeThingWentWrong
+		hostDescription = utility.StatusCodes(utility.SomeThingWentWrong)
 	} else {
 		if ok {
 
-			switch strings.ToUpper(request.ServiceRequest.Serviceinfo.Category) {
+			switch strings.ToUpper(request.Category) {
 
 			case "userservice":
 				fmt.Println(request)
-				var response1 model.Response
-				response1.Code = "200"
-				response1.Description = "aa gai"
-				response1.IsMerchant = "yes"
-				response1.Token = "token"
-				response = response1
+				//var response1 model.Response
+				response.Code = "200"
+				response.Description = "aa gai"
+				response.IsMerchant = true
+				response.Token = "token"
+				//response = response1
 				//response = travelHotel.GetHotelResponse(requestID, request.Service, jsonbody)
 
 			case "nearbyservice":
@@ -46,29 +56,18 @@ func GetResponse(request model.Request, jsonbody []uint8) model.Response {
 				//response = travelBus.GetBusResponse(request.Service, jsonbody)
 
 			default:
-				response.ServiceResponse.ResponseInfo.HostCode = configuration.ServiceCategoryDoesntExists
-				response.ServiceResponse.ResponseInfo.HostDescription = configuration.StatusCodes(configuration.ServiceCategoryDoesntExists)
+				hostCode = utility.ServiceCategoryDoesntExists
+				hostDescription = utility.StatusCodes(utility.ServiceCategoryDoesntExists)
 			}
 
 			// When validation failed
 		} else {
-			response.ServiceResponse.ResponseInfo.HostCode = "xxxx"
-			response.ServiceResponse.ResponseInfo.HostDescription = "xxxx"
+			hostCode = utility.Success
+			hostDescription = utility.StatusCodes(utility.Success)
 		}
 	}
 
-	// //Converting response object into rawtext
-	// rawResponse, err := json.Marshal(response)
-	// if err != nil {
-
-	// 	travelData.ErrorLog(request.ServiceRequest.Transactioninfo.RequestID, "error", err.Error())
-	// }
-
-	// // responselog in file
-	// travelData.ResponseLog(request.ServiceRequest.Transactioninfo.RequestID, string(rawResponse))
-
-	// //Saving response of specific api against requestid
-	// travelData.InsertResponse(requestID, strings.Replace(string(rawResponse), "  ", "", -1))
-	// travelData.ResponseLog(request.ServiceRequest.Transactioninfo.RequestID, string(rawResponse))
+	response.Code = hostCode
+	response.Description = hostDescription
 	return response
 }
