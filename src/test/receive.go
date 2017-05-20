@@ -8,11 +8,11 @@ import (
 var (
 	MQ_NAME       = "mq_payback"
 	Dest_Name     = "mq_payback"
-	IP            = "localhost"
+	IP            = "10.12.61.235"
 	PORT          = 5672
 	CTAG          = "mq_user"
-	USERNAME      = "guest"
-	PASSWORD      = "guest"
+	USERNAME      = "test"
+	PASSWORD      = "test"
 	MQ_DURABLE    = true
 	MQ_NOWAIT     = false
 	MQ_AUTOACK    = true
