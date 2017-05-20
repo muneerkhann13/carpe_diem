@@ -1,0 +1,16 @@
+{
+
+    "MysqlDatabase": [{
+        "Host": "tcp(172.160.0.49:3306)",
+        "Name": "travelaggregator",
+        "Username": "root",
+        "Password": "pass@1234"
+		},
+		{
+		"Host": "tcp(172.160.0.49:3306)",
+        "Name": "redbus",
+        "Username": "root",
+        "Password": "pass@1234"
+		}
+    ]
+}

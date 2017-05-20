@@ -3,12 +3,10 @@ package main
 import (
 	"common/configuration"
 	"fmt"
-	"utilityData"
-
-	//"TravelAggregator/bus/data"
-
+	"inputservice/service_pkg"
 	"log4"
 	"net/http"
+	"utilityData"
 )
 
 func init() {
@@ -36,8 +34,8 @@ func main() {
 		fmt.Println("welcome to carpediem")
 
 		// Oxiface Exteneded Handler
-		http.HandleFunc("/test", apiHandler.Handle)
-		err = http.ListenAndServe(":7000", nil)
+		http.HandleFunc("/Handle", service_pkg.Handle)
+		err = http.ListenAndServe(":8001", nil)
 
 		if err != nil {
 			utilityData.ErrorLog("main", "error", err.Error())

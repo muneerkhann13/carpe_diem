@@ -1,7 +1,6 @@
-package apiHandler
+package service_pkg
 
 import (
-	"encoding/json"
 	"fmt"
 	"model"
 	"strings"
@@ -14,10 +13,10 @@ import (
 
 func GetResponse(request model.Request, jsonbody []uint8) model.Response {
 
-	response := travelModel.Response{}
+	response := model.Response{}
 
 	//Validating request
-	hostCode, hostDescription, ok := validations(request)
+	//hostCode, hostDescription, ok := validations(request)
 
 	// insert request in file log
 
@@ -31,7 +30,14 @@ func GetResponse(request model.Request, jsonbody []uint8) model.Response {
 			switch strings.ToUpper(request.ServiceRequest.Serviceinfo.Category) {
 
 			case "userservice":
-				response = travelHotel.GetHotelResponse(requestID, request.Service, jsonbody)
+				fmt.Println(request)
+				var response1 model.Response
+				response1.Code = "200"
+				response1.Description = "aa gai"
+				response1.IsMerchant = "yes"
+				response1.Token = "token"
+				response = response1
+				//response = travelHotel.GetHotelResponse(requestID, request.Service, jsonbody)
 
 			case "nearbyservice":
 				//response = travelFlight.GetFlightResponse(request.ServiceRequest.Transactioninfo.RequestID, requestID, request.Service, jsonbody)
@@ -46,28 +52,23 @@ func GetResponse(request model.Request, jsonbody []uint8) model.Response {
 
 			// When validation failed
 		} else {
-			response.ServiceResponse.ResponseInfo.HostCode = hostCode
-			response.ServiceResponse.ResponseInfo.HostDescription = hostDescription
+			response.ServiceResponse.ResponseInfo.HostCode = "xxxx"
+			response.ServiceResponse.ResponseInfo.HostDescription = "xxxx"
 		}
 	}
 
-	//Set global parameters values
-	response.Service = request.Service
-	response.Version = request.Version
-	response.ServiceResponse.User.Mdn = request.ServiceRequest.User.Mdn
+	// //Converting response object into rawtext
+	// rawResponse, err := json.Marshal(response)
+	// if err != nil {
 
-	//Converting response object into rawtext
-	rawResponse, err := json.Marshal(response)
-	if err != nil {
+	// 	travelData.ErrorLog(request.ServiceRequest.Transactioninfo.RequestID, "error", err.Error())
+	// }
 
-		travelData.ErrorLog(request.ServiceRequest.Transactioninfo.RequestID, "error", err.Error())
-	}
+	// // responselog in file
+	// travelData.ResponseLog(request.ServiceRequest.Transactioninfo.RequestID, string(rawResponse))
 
-	// responselog in file
-	travelData.ResponseLog(request.ServiceRequest.Transactioninfo.RequestID, string(rawResponse))
-
-	//Saving response of specific api against requestid
-	travelData.InsertResponse(requestID, strings.Replace(string(rawResponse), "  ", "", -1))
-	travelData.ResponseLog(request.ServiceRequest.Transactioninfo.RequestID, string(rawResponse))
+	// //Saving response of specific api against requestid
+	// travelData.InsertResponse(requestID, strings.Replace(string(rawResponse), "  ", "", -1))
+	// travelData.ResponseLog(request.ServiceRequest.Transactioninfo.RequestID, string(rawResponse))
 	return response
 }

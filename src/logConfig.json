@@ -1,0 +1,54 @@
+{  
+   "filter":[  
+	{  
+         "name":"response_log",
+         "filename":"./logFiles/response.log",
+         "format":"[%D %T] [%L] (%S) %M",
+         "default_lvl":"INFO",
+         "rotate":true,
+         "max_size":20480000,
+         "max_lines":100,
+         "rotate_daily":true
+      },
+	{  
+         "name":"request_log",
+         "filename":"./logFiles/request.log",
+         "format":"[%D %T] [%L] (%S) %M",
+         "default_lvl":"INFO",
+         "rotate":true,
+         "max_size":20480000,
+         "max_lines":100,
+         "rotate_daily":true
+      },
+	{  
+         "name":"raw_request_log",
+         "filename":"./logFiles/rawRequest.log",
+         "format":"[%D %T] [%L] (%S) %M",
+         "default_lvl":"INFO",
+         "rotate":true,
+         "max_size":20480000,
+         "max_lines":100,
+         "rotate_daily":true
+      },
+	{  
+         "name":"error_log",
+         "filename":"./logFiles/error.log",
+         "format":"[%D %T] [%L] (%S) %M",
+         "default_lvl":"DEBUG",
+         "rotate":true,
+         "max_size":20480000,
+         "max_lines":100,
+         "rotate_daily":true
+      },
+	{  
+         "name":"partner_log",
+         "filename":"./logFiles/partner.log",
+         "format":"[%D %T] [%L] (%S) %M",
+         "default_lvl":"INFO",
+         "rotate":true,
+         "max_size":20480000,
+         "max_lines":100,
+         "rotate_daily":true
+      }
+   ]
+}
