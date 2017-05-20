@@ -33,19 +33,14 @@ func main() {
 		utilityData.ErrorLog("Main", "error", err.Error())
 	} else {
 
-		fmt.Println("welcome to travel aggregator")
+		fmt.Println("welcome to carpediem")
 
 		// Oxiface Exteneded Handler
-		http.HandleFunc("/OxifaceExtended-Plain", apiHandler.OxifaceExtendedPlain)
-
-		// Oxiface Extended Handler with encryption
-		http.HandleFunc("/OxifaceExtended", apiHandler.OxifaceExtended)
-		err = http.ListenAndServe(":8080", nil)
+		http.HandleFunc("/test", apiHandler.Handle)
+		err = http.ListenAndServe(":7000", nil)
 
 		if err != nil {
-
 			utilityData.ErrorLog("main", "error", err.Error())
-
 		}
 	}
 }
